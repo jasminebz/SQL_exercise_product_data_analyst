@@ -56,10 +56,14 @@ def following():
 
 # all rows where someone from one house follows someone from another house, user names
 def diff_house():
-    query = """SELECT *
+    query = """SELECT u1.first_name, u1.house, u2.first_name, u2.house
             FROM follows f
-            JOIN users u1 on u.user_id = f.user_id
-            JOIN users u2 on u.user_id = f.follows
+            JOIN users u1 on u1.user_id = f.user_id
+            JOIN users u2 on u2.user_id = f.follows
+            WHERE NOT u1.house == u2.house
     """
     c.execute(query)
     print(c.fetchall())
+
+
+diff_house()
