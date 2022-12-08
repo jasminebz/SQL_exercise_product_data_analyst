@@ -65,5 +65,14 @@ def diff_house():
     c.execute(query)
     print(c.fetchall())
 
+# unrequited followings
+def unrequited():
+    query = """SELECT f.user_id, f.follows
+            FROM follows f
+            LEFT JOIN follows f2 ON f.follows = f2.user_id AND f.user_id = f2.follows
+            WHERE f2.user_id IS NULL
+    """
+    c.execute(query)
+    print(c.fetchall())
 
-diff_house()
+unrequited()
