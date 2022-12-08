@@ -48,15 +48,15 @@ def followers_per_user():
     query = """SELECT u.first_name, u.last_name, COUNT(f.follows)
             FROM follows f
             JOIN users u on u.user_id = f.user_id
-            WHERE f.date > '1999-12-31'
+            WHERE f.date < '1999-12-31'
             GROUP BY f.user_id
         """
     c.execute(query)
     results = c.fetchall()
     for i in range(len(results)):
-        print(f"{results[i][0]} {results[i][1]} got {results[i][2]} follower(s) as of 1999-12-31.")
+        print(f"{results[i][0]} {results[i][1]} had {results[i][2]} follower(s) as of 1999-12-31.")
 
-
+followers_per_user()
 # how many followers per
 def following():
     query = """SELECT user_id, COUNT(*)
@@ -92,4 +92,3 @@ def unrequited():
     results = c.fetchall()
     for i in range(len(results)):
         print(f"User {results[i][0]} follows user {results[i][1]}, who doesn't follow them back.")
-
